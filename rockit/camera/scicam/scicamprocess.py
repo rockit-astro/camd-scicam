@@ -384,6 +384,7 @@ class SciCamInterface:
                 # Configure our custom settings
                 self._serial_command('REBOOT', timeout=30)
                 self._serial_command('SOC 30HZ_1MSEXP_-40C_LOWNOISE')
+                self._serial_command('DATA:FORMAT 14BIT_BASE')
                 self._serial_command('DATA:STAMP ON')
 
                 self._cooler_setpoint = self._config.cooler_setpoint
