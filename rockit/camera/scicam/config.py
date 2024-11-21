@@ -68,9 +68,6 @@ CONFIG_SCHEMA = {
             'type': 'number',
             'min': 0
         },
-        'water_cooled': {
-            'type': 'boolean'
-        },
         'worker_processes': {
             'type': 'integer',
             'min': 1
@@ -128,4 +125,3 @@ class Config:
         self.header_card_capacity = config_json['header_card_capacity']
         self.cooler_setpoint = config_json['cooler_setpoint']
         self.cooler_update_delay = config_json['cooler_update_delay']
-        self.water_cooled = config_json['water_cooled']

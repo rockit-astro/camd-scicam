@@ -1,0 +1,18 @@
+{
+  "daemon": "clasp_camera_swir",
+  "pipeline_daemon": "clasp_pipeline",
+  "pipeline_handover_timeout": 10,
+  "log_name": "scicam_camd@clasp-swir",
+  "control_machines": ["CLASPTCS", "CLASPCMOS", "CLASPSWIR"],
+  "client_commands_module": "rockit.camera.scicam",
+  "camera_config_path": "/etc/camd/scicam.fmt",
+  "cooler_setpoint": -40,
+  "cooler_update_delay": 5,
+  "worker_processes": 3,
+  "framebuffer_bytes": 31457280,
+  "header_card_capacity": 144,
+  "camera_id": "SWIR",
+  "output_path": "/data",
+  "output_prefix": "swir",
+  "expcount_path": "/data/swir-counter.json"
+}
