@@ -6,7 +6,7 @@
   "control_machines": ["CLASPTCS", "CLASPCMOS", "CLASPSWIR"],
   "client_commands_module": "rockit.camera.scicam",
   "camera_config_path": "/etc/camd/scicam.fmt",
-  "cooler_setpoint": -40,
+  "cooler_setpoint": -60,
   "cooler_update_delay": 5,
   "worker_processes": 3,
   "framebuffer_bytes": 31457280,
