@@ -8,6 +8,7 @@
   "camera_config_path": "/etc/camd/scicam.fmt",
   "cooler_setpoint": -60,
   "cooler_update_delay": 5,
+  "min_cadence": 0.1,
   "worker_processes": 3,
   "framebuffer_bytes": 31457280,
   "header_card_capacity": 144,

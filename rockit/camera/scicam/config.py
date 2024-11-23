@@ -27,7 +27,7 @@ CONFIG_SCHEMA = {
     'required': [
         'daemon', 'pipeline_daemon', 'pipeline_handover_timeout', 'log_name', 'control_machines',
         'client_commands_module',
-        'camera_config_path', 'camera_id', 'cooler_setpoint', 'cooler_update_delay',
+        'camera_config_path', 'camera_id', 'cooler_setpoint', 'cooler_update_delay', 'min_cadence',
         'worker_processes', 'framebuffer_bytes', 'header_card_capacity', 'output_path', 'output_prefix', 'expcount_path'
     ],
     'properties': {
@@ -65,6 +65,10 @@ CONFIG_SCHEMA = {
             'max': 30,
         },
         'cooler_update_delay': {
+            'type': 'number',
+            'min': 0
+        },
+        'min_cadence': {
             'type': 'number',
             'min': 0
         },
@@ -125,3 +129,4 @@ class Config:
         self.header_card_capacity = config_json['header_card_capacity']
         self.cooler_setpoint = config_json['cooler_setpoint']
         self.cooler_update_delay = config_json['cooler_update_delay']
+        self.min_cadence = config_json['min_cadence']

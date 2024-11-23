@@ -68,7 +68,7 @@ class SciCamInterface:
         self._senspcb_temperature = 0
         self._case_temperature = 0
 
-        self._exposure_time = 1
+        self._exposure_time = 1.0
 
         # Limit and number of frames acquired during the next sequence
         # Set to 0 to run continuously
@@ -198,7 +198,7 @@ class SciCamInterface:
         try:
             with self._lock:
                 current_exposure_counts = int(self._serial_command('SENS:EXPPER?'))
-                exposure_counts = int(self._exposure_time * 15e6)
+                exposure_counts = max(int(self._serial_command(f'SENS:EXPPER:MIN?')), int(self._exposure_time * 15e6))
 
                 if exposure_counts > current_exposure_counts:
                     # Increase the frame period to be longer than the desired exposure
@@ -209,7 +209,7 @@ class SciCamInterface:
                 self._serial_command(f'SENS:EXPPER {exposure_counts}')
 
                 # Reduce the frame period to its minimum length
-                period_counts = int(self._serial_command(f'SENS:FRAMEPER:MIN?'))
+                period_counts = max(int(self._serial_command(f'SENS:FRAMEPER:MIN?')), int(self._config.min_cadence * 15e6))
                 self._serial_command(f'SENS:FRAMEPER {period_counts}')
 
                 # Sync the onboard clock to reset any clock drift
