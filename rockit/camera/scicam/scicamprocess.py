@@ -138,6 +138,12 @@ class SciCamInterface:
                         self._cooler_mode = CoolerMode.Locking
                 else:
                     self._cooler_mode = CoolerMode.Off
+
+                errors = self._serial_command('ERROR?')
+                if errors[0][12:] != 'None':
+                    print('Soft Error: ' + errors[0][12:])
+                if errors[1][12:] != 'None':
+                    print('Hard Error: ' + errors[0][12:])
         except:
             self._cooler_mode = CoolerMode.Unknown
 
@@ -179,7 +185,10 @@ class SciCamInterface:
         if response[1].startswith('ERR:'):
             raise Exception(f'command `{command}`: {response[1]}')
 
-        return response[1]
+        if len(response) == 4:
+            return response[1]
+
+        return response[1:-2]
 
     def __run_exposure_sequence(self, quiet):
         """Worker thread that acquires frames and their times.
@@ -386,6 +395,7 @@ class SciCamInterface:
                 self._serial_command('SOC 30HZ_1MSEXP_-40C_LOWNOISE')
                 self._serial_command('DATA:FORMAT 14BIT_BASE')
                 self._serial_command('DATA:STAMP ON')
+                self._serial_command('LED OFF')
 
                 self._cooler_setpoint = self._config.cooler_setpoint
                 self._serial_command(f'TEMP:SENS:SET {self._cooler_setpoint}')
