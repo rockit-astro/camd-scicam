@@ -253,9 +253,6 @@ class SciCamInterface:
             readout_array = np.frombuffer(readout_buffer, dtype=np.uint16)
             readout_cdata = (c_uint16 * pixel_count).from_buffer(readout_buffer)
 
-            with self._lock:
-                self._serial_command('SENS:TRIG ON')
-
             while not self._stop_acquisition and not self._processing_stop_signal.value:
                 self._sequence_exposure_start_time = Time.now()
                 framebuffer_offset = self._processing_framebuffer_offsets.get()
@@ -326,7 +323,6 @@ class SciCamInterface:
         finally:
             with self._lock:
                 self._xclib.pxd_goUnLive(1)
-                self._serial_command('SENS:TRIG OFF')
 
             # Save updated counts to disk
             with open(self._counter_filename, 'w', encoding='ascii') as outfile:
@@ -403,9 +399,6 @@ class SciCamInterface:
 
                 self._readout_width = self._xclib.pxd_imageXdim()
                 self._readout_height = self._xclib.pxd_imageYdim()
-
-                # Disable frames until we are ready to start exposing
-                self._serial_command('SENS:TRIG OFF')
 
                 # Query info for fits headers
                 model = self._serial_command('SYS:MODEL?')
