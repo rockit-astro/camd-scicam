@@ -1,6 +1,6 @@
 Name:      rockit-camera-scicam
 Version:   %{_version}
-Release:   1
+Release:   1%{dist}
 Summary:   Control code for PIRT SciCam1280
 Url:       https://github.com/rockit-astro/camd-scicam
 License:   GPL-3.0
